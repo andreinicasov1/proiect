@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import NotificationProvider from './Notification'
-import { LayoutDashboard, Sword, Trophy, User, Settings, LogOut, Menu, X, Shield, Zap, Flame, ChevronRight, Users, BarChart2 } from 'lucide-react'
+import { LayoutDashboard, Sword, Trophy, User, Settings, LogOut, Menu, X, Shield, Zap, Flame, ChevronRight, Users, BarChart2, Newspaper, Swords } from 'lucide-react'
 
 function XPBar({ xp }) {
   const level = Math.floor(xp / 500) + 1
@@ -22,10 +22,14 @@ function XPBar({ xp }) {
 }
 
 const navItems = [
-  { to:'/dashboard',  icon:LayoutDashboard, label:'Dashboard' },
-  { to:'/exercitii',  icon:Sword,           label:'Exerciții' },
-  { to:'/clasament',  icon:Trophy,          label:'Clasament' },
-  { to:'/profil',     icon:User,            label:'Profil' },
+  { to:'/dashboard',          icon:LayoutDashboard, label:'Dashboard' },
+  { to:'/exercitii',          icon:Sword,           label:'Exerciții' },
+  { to:'/noutati',            icon:Newspaper,       label:'Noutăți' },
+  { to:'/clanuri',            icon:Users,           label:'Clanuri' },
+  { to:'/turnee',             icon:Swords,          label:'Turnee' },
+  { to:'/clasament',          icon:Trophy,          label:'Clasament' },
+  { to:'/clasament-clanuri',  icon:Shield,          label:'Clasament Clanuri' },
+  { to:'/profil',             icon:User,            label:'Profil' },
 ]
 
 export default function Layout({ children }) {
@@ -74,7 +78,7 @@ export default function Layout({ children }) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-3 flex flex-col gap-0.5">
+      <nav className="flex-1 px-3 py-3 flex flex-col gap-0.5 overflow-y-auto">
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink key={to} to={to} onClick={() => setOpen(false)}
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
@@ -85,6 +89,9 @@ export default function Layout({ children }) {
         {isAdmin && (
           <>
             <div className="border-t border-dark-300/20 my-2"/>
+            <div className="px-3 py-1">
+              <span className="font-mono text-[10px] text-gray-600 uppercase tracking-widest">Admin</span>
+            </div>
             <NavLink to="/admin" onClick={() => setOpen(false)}
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
               <Settings size={16}/><span>Admin Panel</span>

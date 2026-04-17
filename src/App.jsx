@@ -13,19 +13,21 @@ import Leaderboard from './pages/Leaderboard'
 import AdminPanel from './pages/AdminPanel'
 import Analytics from './pages/Analytics'
 import CTFMode from './pages/CTFMode'
+import News from './pages/News'
+import Clans from './pages/Clans'
+import ClanTournaments from './pages/ClanTournaments'
+import ClanLeaderboard from './pages/ClanLeaderboard'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
   if (loading) return <LoadingScreen />
   return user ? children : <Navigate to="/autentificare" replace />
 }
-
 function AdminRoute({ children }) {
   const { isAdmin, loading } = useAuth()
   if (loading) return <LoadingScreen />
   return isAdmin ? children : <Navigate to="/dashboard" replace />
 }
-
 function PublicRoute({ children }) {
   const { user, loading } = useAuth()
   if (loading) return <LoadingScreen />
@@ -43,13 +45,17 @@ export default function App() {
         <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
         <Route path="/autentificare" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/inregistrare" element={<PublicRoute><Register /></PublicRoute>} />
-        <Route path="/dashboard" element={<PrivateRoute><Layout><Dashboard /></Layout></PrivateRoute>} />
-        <Route path="/exercitii" element={<PrivateRoute><Layout><Challenges /></Layout></PrivateRoute>} />
+        <Route path="/dashboard"    element={<PrivateRoute><Layout><Dashboard /></Layout></PrivateRoute>} />
+        <Route path="/exercitii"    element={<PrivateRoute><Layout><Challenges /></Layout></PrivateRoute>} />
         <Route path="/exercitii/:id" element={<PrivateRoute><Layout><ChallengeDetail /></Layout></PrivateRoute>} />
-        <Route path="/profil" element={<PrivateRoute><Layout><Profile /></Layout></PrivateRoute>} />
-        <Route path="/clasament" element={<PrivateRoute><Layout><Leaderboard /></Layout></PrivateRoute>} />
-        <Route path="/ctf" element={<PrivateRoute><Layout><CTFMode /></Layout></PrivateRoute>} />
-        <Route path="/admin" element={<AdminRoute><Layout><AdminPanel /></Layout></AdminRoute>} />
+        <Route path="/profil"       element={<PrivateRoute><Layout><Profile /></Layout></PrivateRoute>} />
+        <Route path="/clasament"    element={<PrivateRoute><Layout><Leaderboard /></Layout></PrivateRoute>} />
+        <Route path="/ctf"          element={<PrivateRoute><Layout><CTFMode /></Layout></PrivateRoute>} />
+        <Route path="/noutati"      element={<PrivateRoute><Layout><News /></Layout></PrivateRoute>} />
+        <Route path="/clanuri"      element={<PrivateRoute><Layout><Clans /></Layout></PrivateRoute>} />
+        <Route path="/turnee"       element={<PrivateRoute><Layout><ClanTournaments /></Layout></PrivateRoute>} />
+        <Route path="/clasament-clanuri" element={<PrivateRoute><Layout><ClanLeaderboard /></Layout></PrivateRoute>} />
+        <Route path="/admin"        element={<AdminRoute><Layout><AdminPanel /></Layout></AdminRoute>} />
         <Route path="/admin/analytics" element={<AdminRoute><Layout><Analytics /></Layout></AdminRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
